@@ -29,10 +29,12 @@ public abstract partial class Shape
         {
             get
             {
+                ThrowIfDisposed();
                 return shapes;
             }
             set
             {
+                ThrowIfDisposed();
                 shapes = value;
             }
         }
