@@ -2,11 +2,16 @@
 
 public abstract partial class Shape : ICloneable, IDisposable
 {
+    public static readonly Shape Empty = new EmptyShape();
+
+    private readonly ShapeCollection shapes = new();
+
     private string name = string.Empty;
     private bool disposed = false;
 
     protected Shape()
     {
+        shapes.Add(this);
     }
 
     ~Shape()
@@ -58,6 +63,11 @@ public abstract partial class Shape : ICloneable, IDisposable
     }
     protected virtual void Dispose(bool disposing)
     {
+        if (disposing)
+        {
+            name = string.Empty;
+            shapes.Dispose();
+        }
     }
     internal void ThrowIfDisposed()
     {
