@@ -59,6 +59,10 @@ public class Rectangle : Shape
         }
     }
 
+    public override void Draw()
+    {
+    }
+
     protected override void Dispose(bool disposing)
     {
         if (disposing)
