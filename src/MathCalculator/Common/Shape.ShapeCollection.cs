@@ -14,9 +14,15 @@ public abstract partial class Shape
             Shapes = new List<Shape>();
             ClearInternal();
         }
-        public ShapeCollection(List<Shape> shapes)
+        public ShapeCollection(IEnumerable<Shape> collection)
         {
-            Shapes = shapes;
+            Shapes = new List<Shape>();
+            AddRangeInternal(collection);
+        }
+
+        ~ShapeCollection()
+        {
+            Dispose(disposing: false);
         }
 
         public virtual List<Shape> Shapes
@@ -41,6 +47,7 @@ public abstract partial class Shape
 
         public virtual bool IsReadOnly => false;
 
+        private IEnumerator<Shape> InnerEnumerator => shapes.GetEnumerator();
 
         public virtual void Add(Shape item)
         {
@@ -60,19 +67,6 @@ public abstract partial class Shape
             AddRangeInternal(shapes);
         }
 
-        private void AddRangeInternal(IEnumerable<Shape> collection)
-        {
-            foreach (Shape item in collection)
-            {
-                AddInternal(item);
-            }
-        }
-
-        private void AddInternal(Shape item)
-        {
-            shapes.Add(item);
-        }
-
         public virtual void Clear()
         {
             ThrowIfDisposed();
@@ -83,14 +77,7 @@ public abstract partial class Shape
         {
             ThrowIfDisposed();
 
-            Shape itemToCheck = item;
-
-            if (itemToCheck is null)
-            {
-                IEnumerator<Shape> enumerator = GetEnumeratorInternal();
-                itemToCheck = enumerator.Current;
-            }
-
+            Shape itemToCheck = item ?? InnerEnumerator.Current;
             return shapes.Contains(itemToCheck);
         }
 
@@ -103,21 +90,14 @@ public abstract partial class Shape
         public virtual IEnumerator<Shape> GetEnumerator()
         {
             ThrowIfDisposed();
-            return GetEnumeratorInternal();
+            return InnerEnumerator;
         }
 
         public virtual int IndexOf(Shape item)
         {
             ThrowIfDisposed();
 
-            Shape itemToCheck = item;
-
-            if (itemToCheck is null)
-            {
-                IEnumerator<Shape> enumerator = GetEnumeratorInternal();
-                itemToCheck = enumerator.Current;
-            }
-
+            Shape itemToCheck = item ?? InnerEnumerator.Current;
             return shapes.IndexOf(itemToCheck);
         }
 
@@ -133,36 +113,41 @@ public abstract partial class Shape
             return RemoveInternal(item);
         }
 
-        public virtual void RemoveAt(int index)
+        public virtual bool RemoveAt(int index)
         {
             ThrowIfDisposed();
-            RemoveInternal(this[index]);
+
+            Shape item = this[index];
+            return RemoveInternal(item);
+        }
+
+        #region private helpers
+        private void AddRangeInternal(IEnumerable<Shape> collection)
+        {
+            foreach (Shape item in collection)
+            {
+                AddInternal(item);
+            }
+        }
+
+        private void AddInternal(Shape item)
+        {
+            shapes.Add(item);
         }
 
         private bool RemoveInternal(Shape item)
         {
-            Shape itemToRemove = item;
-
-            if (itemToRemove is null)
-            {
-                IEnumerator<Shape> enumerator = GetEnumeratorInternal();
-                itemToRemove = enumerator.Current;
-            }
-
-            return shapes.Remove(itemToRemove);
-        }
-
-        private IEnumerator<Shape> GetEnumeratorInternal()
-        {
-            return shapes.GetEnumerator();
+            Shape removableItem = item ?? InnerEnumerator.Current;
+            return shapes.Remove(removableItem);
         }
 
         private void ClearInternal()
         {
             shapes.Clear();
         }
+        #endregion
 
-
+        #region IDisposable pattern
         public void Dispose()
         {
             Dispose(disposing: true);
@@ -184,6 +169,7 @@ public abstract partial class Shape
                 throw new ObjectDisposedException(currentType.FullName);
             }
         }
+        #endregion
     }
 }
 
