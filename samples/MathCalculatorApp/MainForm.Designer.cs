@@ -8,11 +8,16 @@ public partial class MainForm : Form
 
     protected override void Dispose(bool disposing)
     {
-        if (disposing && (components != null))
+        DisposeMe(disposing);
+        base.Dispose(disposing);
+    }
+
+    private void DisposeMe(bool disposing)
+    {
+        if (disposing && components != null)
         {
             components.Dispose();
         }
-        base.Dispose(disposing);
     }
 
     private void InitializeComponent()
