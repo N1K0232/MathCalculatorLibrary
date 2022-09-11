@@ -17,10 +17,12 @@ public class Rectangle : Shape
     {
         get
         {
+            ThrowIfDisposed();
             return width;
         }
         set
         {
+            ThrowIfDisposed();
             width = value;
         }
     }
@@ -29,10 +31,12 @@ public class Rectangle : Shape
     {
         get
         {
+            ThrowIfDisposed();
             return height;
         }
         set
         {
+            ThrowIfDisposed();
             height = value;
         }
     }
@@ -41,6 +45,7 @@ public class Rectangle : Shape
     {
         get
         {
+            ThrowIfDisposed();
             return width * height;
         }
     }
@@ -49,6 +54,7 @@ public class Rectangle : Shape
     {
         get
         {
+            ThrowIfDisposed();
             return (width + height) * 2;
         }
     }
@@ -59,6 +65,7 @@ public class Rectangle : Shape
         {
             width = 0;
             height = 0;
+            IsDisposed = true;
         }
 
         base.Dispose(disposing);

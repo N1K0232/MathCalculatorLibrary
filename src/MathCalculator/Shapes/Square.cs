@@ -15,10 +15,12 @@ public class Square : Shape
     {
         get
         {
+            ThrowIfDisposed();
             return side;
         }
         set
         {
+            ThrowIfDisposed();
             side = value;
         }
     }
@@ -27,6 +29,7 @@ public class Square : Shape
     {
         get
         {
+            ThrowIfDisposed();
             return side * side;
         }
     }
@@ -35,6 +38,7 @@ public class Square : Shape
     {
         get
         {
+            ThrowIfDisposed();
             return side * 4;
         }
     }
@@ -44,6 +48,7 @@ public class Square : Shape
         if (disposing && !IsDisposed)
         {
             side = 0;
+            IsDisposed = true;
         }
 
         base.Dispose(disposing);

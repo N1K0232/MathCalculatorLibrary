@@ -33,13 +33,19 @@ public abstract partial class Shape : ICloneable, IDisposable
         }
     }
 
-    internal bool IsDisposed => disposed;
-
-    public virtual Shape? Clone()
+    internal bool IsDisposed
     {
+        get => disposed;
+        set => disposed = value;
+    }
+
+    public virtual Shape Clone()
+    {
+        ThrowIfDisposed();
+
         ICloneable cloneable = this;
-        object? clone = cloneable.Clone();
-        return clone as Shape;
+        object clone = cloneable.Clone();
+        return (Shape)clone!;
     }
     object ICloneable.Clone()
     {
@@ -52,10 +58,6 @@ public abstract partial class Shape : ICloneable, IDisposable
     }
     protected virtual void Dispose(bool disposing)
     {
-        if (!disposed)
-        {
-            disposed = true;
-        }
     }
     internal void ThrowIfDisposed()
     {
