@@ -45,10 +45,9 @@ public class Square : Shape
 
     protected override void Dispose(bool disposing)
     {
-        if (disposing && !IsDisposed)
+        if (disposing)
         {
             side = 0;
-            IsDisposed = true;
         }
 
         base.Dispose(disposing);

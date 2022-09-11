@@ -61,11 +61,10 @@ public class Rectangle : Shape
 
     protected override void Dispose(bool disposing)
     {
-        if (disposing && !IsDisposed)
+        if (disposing)
         {
             width = 0;
             height = 0;
-            IsDisposed = true;
         }
 
         base.Dispose(disposing);

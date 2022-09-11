@@ -38,12 +38,6 @@ public abstract partial class Shape : ICloneable, IDisposable
         }
     }
 
-    internal bool IsDisposed
-    {
-        get => disposed;
-        set => disposed = value;
-    }
-
     public virtual Shape Clone()
     {
         ThrowIfDisposed();
@@ -63,10 +57,12 @@ public abstract partial class Shape : ICloneable, IDisposable
     }
     protected virtual void Dispose(bool disposing)
     {
-        if (disposing)
+        if (disposing && !disposed)
         {
             name = string.Empty;
             shapes.Dispose();
+
+            disposed = true;
         }
     }
     internal void ThrowIfDisposed()
