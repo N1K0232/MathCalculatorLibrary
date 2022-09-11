@@ -21,7 +21,9 @@ public class Square : Shape
         set
         {
             ThrowIfDisposed();
+
             side = value;
+            Invalidate();
         }
     }
 
@@ -43,7 +45,7 @@ public class Square : Shape
         }
     }
 
-    public override void Draw()
+    protected override void Draw()
     {
     }
 

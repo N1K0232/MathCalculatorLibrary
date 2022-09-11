@@ -23,7 +23,9 @@ public class Rectangle : Shape
         set
         {
             ThrowIfDisposed();
+
             width = value;
+            Invalidate();
         }
     }
 
@@ -37,7 +39,9 @@ public class Rectangle : Shape
         set
         {
             ThrowIfDisposed();
+
             height = value;
+            Invalidate();
         }
     }
 
@@ -59,7 +63,7 @@ public class Rectangle : Shape
         }
     }
 
-    public override void Draw()
+    protected override void Draw()
     {
     }
 
