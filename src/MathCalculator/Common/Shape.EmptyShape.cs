@@ -14,7 +14,7 @@ public abstract partial class Shape
 
         public override Shape Clone() => this;
 
-        public override void Draw()
+        protected override void Draw()
         {
             throw new InvalidOperationException("can't draw an empty shape");
         }
