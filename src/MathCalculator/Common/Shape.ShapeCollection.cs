@@ -68,11 +68,7 @@ public abstract partial class Shape
         public virtual void AddRange(IEnumerable<Shape> collection)
         {
             ThrowIfDisposed();
-
-            foreach (Shape item in collection)
-            {
-                AddInternal(item);
-            }
+            AddRangeInternal(collection);
         }
 
         public virtual void Clear()
