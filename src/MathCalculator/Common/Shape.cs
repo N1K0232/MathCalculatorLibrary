@@ -4,14 +4,14 @@ public abstract partial class Shape : ICloneable, IDisposable
 {
     public static readonly Shape Empty = new EmptyShape();
 
-    private readonly ShapeCollection shapes = new();
-
     private string name = string.Empty;
+    private ShapeCollection? shapes;
+
     private bool disposed = false;
 
     protected Shape()
     {
-        shapes.Add(this);
+        Shapes.Add(this);
     }
 
     ~Shape()
@@ -19,6 +19,20 @@ public abstract partial class Shape : ICloneable, IDisposable
         Dispose(disposing: false);
     }
 
+
+    public ShapeCollection Shapes
+    {
+        get
+        {
+            ThrowIfDisposed();
+            return shapes ?? new ShapeCollection();
+        }
+        set
+        {
+            ThrowIfDisposed();
+            shapes = value;
+        }
+    }
 
     public abstract float Area { get; }
 
@@ -64,7 +78,7 @@ public abstract partial class Shape : ICloneable, IDisposable
         if (disposing && !disposed)
         {
             name = string.Empty;
-            shapes.Dispose();
+            Shapes.Dispose();
 
             disposed = true;
         }
