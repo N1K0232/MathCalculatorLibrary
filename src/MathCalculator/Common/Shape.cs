@@ -11,6 +11,7 @@ public abstract partial class Shape : ICloneable, IDisposable
 
     protected Shape()
     {
+        Shapes = new ShapeCollection();
         Shapes.Add(this);
     }
 
