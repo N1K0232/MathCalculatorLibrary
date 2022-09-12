@@ -65,16 +65,14 @@ public abstract partial class Shape
             AddInternal(item);
         }
 
-        public virtual void AddRange(IEnumerable<Shape> shapes)
+        public virtual void AddRange(IEnumerable<Shape> collection)
         {
             ThrowIfDisposed();
-            AddRangeInternal(shapes);
-        }
 
-        public virtual void AddRange(Shape[] shapes)
-        {
-            ThrowIfDisposed();
-            AddRangeInternal(shapes);
+            foreach (Shape item in collection)
+            {
+                AddInternal(item);
+            }
         }
 
         public virtual void Clear()
@@ -95,12 +93,6 @@ public abstract partial class Shape
         {
             ThrowIfDisposed();
             shapes.CopyTo(array, arrayIndex);
-        }
-
-        public virtual IEnumerator<Shape> GetEnumerator()
-        {
-            ThrowIfDisposed();
-            return InnerEnumerator;
         }
 
         public virtual int IndexOf(Shape item)
@@ -129,16 +121,23 @@ public abstract partial class Shape
             return RemoveInternal(item);
         }
 
-        public virtual bool RemoveRange(Shape[] collection)
-        {
-            ThrowIfDisposed();
-            return RemoveRangeInternal(collection);
-        }
-
         public virtual bool RemoveRange(IEnumerable<Shape> collection)
         {
             ThrowIfDisposed();
-            return RemoveRangeInternal(collection);
+
+            foreach (Shape item in collection)
+            {
+                if (RemoveInternal(item))
+                {
+                    continue;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public virtual void Update(Shape item)
@@ -147,16 +146,14 @@ public abstract partial class Shape
             UpdateInternal(item);
         }
 
-        public virtual void UpdateRange(Shape[] collection)
-        {
-            ThrowIfDisposed();
-            UpdateRangeInternal(collection);
-        }
-
         public virtual void UpdateRange(IEnumerable<Shape> collection)
         {
             ThrowIfDisposed();
-            UpdateRangeInternal(collection);
+
+            foreach (Shape item in collection)
+            {
+                UpdateInternal(item);
+            }
         }
 
         #region private helpers
@@ -180,23 +177,6 @@ public abstract partial class Shape
             return shapes.Remove(removableItem);
         }
 
-        private bool RemoveRangeInternal(IEnumerable<Shape> collection)
-        {
-            foreach (Shape item in collection)
-            {
-                if (RemoveInternal(item))
-                {
-                    continue;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
         private void ClearInternal()
         {
             shapes.Clear();
@@ -214,14 +194,6 @@ public abstract partial class Shape
         {
             item.ThrowIfDisposed();
             shapes.Insert(index, item);
-        }
-
-        private void UpdateRangeInternal(IEnumerable<Shape> collection)
-        {
-            foreach (Shape item in collection)
-            {
-                UpdateInternal(item);
-            }
         }
 
         private void UpdateInternal(Shape item)
