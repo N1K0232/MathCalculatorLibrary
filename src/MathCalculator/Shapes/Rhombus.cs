@@ -18,25 +18,71 @@ public class Rhombus : Shape
 
     public float Side
     {
-        get => side;
-        set => side = value;
+        get
+        {
+            ThrowIfDisposed();
+            return side;
+        }
+        set
+        {
+            ThrowIfDisposed();
+
+            side = value;
+            Invalidate();
+        }
     }
 
     public float MajorAxis
     {
-        get => majorAxis;
-        set => majorAxis = value;
+        get
+        {
+            ThrowIfDisposed();
+            return majorAxis;
+        }
+        set
+        {
+            ThrowIfDisposed();
+
+            majorAxis = value;
+            Invalidate();
+        }
     }
 
     public float MinorAxis
     {
-        get => minorAxis;
-        set => minorAxis = value;
+        get
+        {
+            ThrowIfDisposed();
+            return minorAxis;
+        }
+        set
+        {
+            ThrowIfDisposed();
+
+            minorAxis = value;
+            Invalidate();
+        }
     }
 
-    public override float Area => throw new NotImplementedException();
+    public override float Area
+    {
+        get
+        {
+            ThrowIfDisposed();
 
-    public override float Perimeter => throw new NotImplementedException();
+            float doubleArea = MajorAxis * MinorAxis;
+            return doubleArea / 2;
+        }
+    }
+
+    public override float Perimeter
+    {
+        get
+        {
+            ThrowIfDisposed();
+            return side * 4;
+        }
+    }
 
 
     protected override void Draw()
