@@ -63,6 +63,19 @@ public class Rectangle : Shape
         }
     }
 
+    public float Diagonal
+    {
+        get
+        {
+            ThrowIfDisposed();
+
+            float width = Width * 2;
+            float height = Height * 2;
+
+            return Convert.ToSingle(Math.Sqrt(width + height));
+        }
+    }
+
     protected override void Draw()
     {
     }

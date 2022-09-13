@@ -45,6 +45,16 @@ public class Square : Shape
         }
     }
 
+    public float Diagonal
+    {
+        get
+        {
+            ThrowIfDisposed();
+
+            return Convert.ToSingle(2 * Math.Sqrt(side));
+        }
+    }
+
     protected override void Draw()
     {
     }
