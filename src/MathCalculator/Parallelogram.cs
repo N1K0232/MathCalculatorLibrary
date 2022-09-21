@@ -1,6 +1,6 @@
 ﻿using MathCalculator.Common;
 
-namespace MathCalculator.Shapes;
+namespace MathCalculator;
 
 public class Parallelogram : Shape
 {
@@ -94,7 +94,7 @@ public class Parallelogram : Shape
         {
             ThrowIfDisposed();
 
-            return (2 * LongSide) + (2 * ShortSide);
+            return 2 * LongSide + 2 * ShortSide;
         }
     }
 

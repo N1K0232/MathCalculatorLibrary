@@ -1,36 +1,18 @@
 ﻿using MathCalculator.Common;
 
-namespace MathCalculator.Shapes;
+namespace MathCalculator;
 
-public class Rhombus : Shape
+public class Ellipse : Shape
 {
-    private float side;
     private float majorAxis;
     private float minorAxis;
 
-    public Rhombus()
+    public Ellipse()
     {
-        side = 0;
         majorAxis = 0;
         minorAxis = 0;
     }
 
-
-    public float Side
-    {
-        get
-        {
-            ThrowIfDisposed();
-            return side;
-        }
-        set
-        {
-            ThrowIfDisposed();
-
-            side = value;
-            Invalidate();
-        }
-    }
 
     public float MajorAxis
     {
@@ -70,8 +52,8 @@ public class Rhombus : Shape
         {
             ThrowIfDisposed();
 
-            float doubleArea = MajorAxis * MinorAxis;
-            return doubleArea / 2;
+            float pi = Convert.ToSingle(Math.PI);
+            return SemiMajorAxis * SemiMinorAxis * pi;
         }
     }
 
@@ -80,10 +62,16 @@ public class Rhombus : Shape
         get
         {
             ThrowIfDisposed();
-            return side * 4;
+
+            float pi = Convert.ToSingle(Math.PI);
+            float majorAxis = SemiMajorAxis * SemiMajorAxis;
+            float minorAxis = SemiMinorAxis * SemiMinorAxis;
+            return Convert.ToSingle(2 * pi * Math.Sqrt((majorAxis + minorAxis) / 2));
         }
     }
 
+    private float SemiMajorAxis => MajorAxis / 2;
+    private float SemiMinorAxis => MinorAxis / 2;
 
     protected override void Draw(Graphics graphics)
     {
@@ -93,7 +81,6 @@ public class Rhombus : Shape
     {
         if (disposing)
         {
-            side = 0;
             majorAxis = 0;
             minorAxis = 0;
         }

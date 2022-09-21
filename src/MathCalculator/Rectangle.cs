@@ -1,6 +1,6 @@
 ﻿using MathCalculator.Common;
 
-namespace MathCalculator.Shapes;
+namespace MathCalculator;
 
 public class Rectangle : Shape
 {
