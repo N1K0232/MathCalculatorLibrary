@@ -1,4 +1,4 @@
-﻿namespace MathCalculator.Common;
+﻿namespace MathCalculator;
 
 public abstract partial class Shape
 {
@@ -14,7 +14,7 @@ public abstract partial class Shape
 
         public override Shape Clone() => this;
 
-        protected override void Draw()
+        protected override void Draw(Graphics graphics)
         {
             throw new InvalidOperationException("can't draw an empty shape");
         }

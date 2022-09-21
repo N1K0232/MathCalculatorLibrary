@@ -1,4 +1,4 @@
-﻿namespace MathCalculator.Common;
+﻿namespace MathCalculator;
 
 public abstract partial class Shape : ICloneable, IDisposable
 {

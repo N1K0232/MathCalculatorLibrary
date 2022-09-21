@@ -1,15 +1,16 @@
 ﻿using System.Drawing.Drawing2D;
 
-namespace MathCalculator.Common;
+namespace MathCalculator;
 
 public abstract partial class Shape
 {
     private float x = 0;
     private float y = 0;
 
-    private PointF location;
     private Color borderColor;
     private Color shapeColor;
+
+    private PointF location;
     private SmoothingMode? smoothingMode;
 
     public float X
@@ -36,18 +37,7 @@ public abstract partial class Shape
             UpdateLocation();
         }
     }
-    public PointF Location
-    {
-        get
-        {
-            return location;
-        }
-        set
-        {
-            location = value;
-            Invalidate();
-        }
-    }
+
     public Color BorderColor
     {
         get
@@ -82,6 +72,19 @@ public abstract partial class Shape
             Invalidate();
         }
     }
+
+    public PointF Location
+    {
+        get
+        {
+            return location;
+        }
+        set
+        {
+            location = value;
+            Invalidate();
+        }
+    }
     public SmoothingMode? Mode
     {
         get
@@ -98,6 +101,7 @@ public abstract partial class Shape
             smoothingMode = value;
         }
     }
+
 
     protected abstract void Draw(Graphics graphics);
 

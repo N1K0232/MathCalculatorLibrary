@@ -1,4 +1,4 @@
-﻿namespace MathCalculator.Common;
+﻿namespace MathCalculator;
 
 #nullable disable
 
@@ -44,7 +44,7 @@ public abstract partial class Shape
             get
             {
                 ThrowIfDisposed();
-                return shapes[index];
+                return GetShapeByIndex(index);
             }
             set
             {
@@ -57,7 +57,30 @@ public abstract partial class Shape
 
         public virtual bool IsReadOnly => false;
 
-        private IEnumerator<Shape> InnerEnumerator => shapes.GetEnumerator();
+        private Shape Current
+        {
+            get
+            {
+                IEnumerator<Shape> current = InnerEnumerator;
+                return current.Current;
+            }
+        }
+
+        public virtual IEnumerator<Shape> Enumerator
+        {
+            get
+            {
+                return InnerEnumerator;
+            }
+        }
+
+        private IEnumerator<Shape> InnerEnumerator
+        {
+            get
+            {
+                return shapes.GetEnumerator();
+            }
+        }
 
         public virtual void Add(Shape item)
         {
@@ -81,7 +104,7 @@ public abstract partial class Shape
         {
             ThrowIfDisposed();
 
-            Shape itemToCheck = item ?? InnerEnumerator.Current;
+            Shape itemToCheck = item ?? Current;
             return shapes.Contains(itemToCheck);
         }
 
@@ -113,7 +136,7 @@ public abstract partial class Shape
         {
             ThrowIfDisposed();
 
-            Shape item = this[index];
+            Shape item = GetShapeByIndex(index);
             return RemoveInternal(item);
         }
 
@@ -170,7 +193,7 @@ public abstract partial class Shape
 
         private bool RemoveInternal(Shape item)
         {
-            Shape removableItem = item ?? InnerEnumerator.Current;
+            Shape removableItem = item ?? Current;
             return shapes.Remove(removableItem);
         }
 
@@ -183,8 +206,24 @@ public abstract partial class Shape
         {
             item.ThrowIfDisposed();
 
-            Shape itemToCheck = item ?? InnerEnumerator.Current;
+            Shape itemToCheck = item ?? Current;
             return shapes.IndexOf(itemToCheck);
+        }
+
+        protected Shape GetShapeByIndex(int index)
+        {
+            Shape item;
+
+            if (index < 0)
+            {
+                item = null;
+            }
+            else
+            {
+                item = shapes[index];
+            }
+
+            return item;
         }
 
         private void InsertInternal(int index, Shape item)
@@ -218,11 +257,11 @@ public abstract partial class Shape
                 disposed = true;
             }
         }
-        private void ThrowIfDisposed()
+        protected void ThrowIfDisposed()
         {
             if (disposed)
             {
-                Type currentType = typeof(ShapeCollection);
+                Type currentType = GetType();
                 throw new ObjectDisposedException(currentType.FullName);
             }
         }
