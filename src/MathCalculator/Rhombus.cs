@@ -1,6 +1,4 @@
-﻿using MathCalculator.Common;
-
-namespace MathCalculator;
+﻿namespace MathCalculator;
 
 public class Rhombus : Shape
 {
