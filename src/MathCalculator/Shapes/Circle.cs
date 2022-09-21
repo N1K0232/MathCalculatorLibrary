@@ -49,8 +49,22 @@ public class Circle : Shape
         }
     }
 
-    protected override void Draw()
+    protected override void Draw(Graphics graphics)
     {
+        Color borderColor = BorderColor;
+        Color shapeColor = ShapeColor;
+        PointF location = Location;
+
+        float radius = Radius * 10;
+
+        Pen borderPen = new(borderColor);
+        SolidBrush shapeBrush = new(shapeColor);
+
+        graphics.DrawEllipse(borderPen, location.X, location.Y, radius, radius);
+        graphics.FillEllipse(shapeBrush, location.X, location.Y, radius, radius);
+
+        borderPen.Dispose();
+        shapeBrush.Dispose();
     }
 
     protected override void Dispose(bool disposing)
