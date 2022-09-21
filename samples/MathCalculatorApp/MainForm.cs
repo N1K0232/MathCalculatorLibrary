@@ -1,6 +1,5 @@
-using MathCalculator.Common;
-using MathCalculator.Shapes;
-using Shapes = MathCalculator.Shapes;
+using MathCalculator;
+using Shapes = MathCalculator;
 
 namespace MathCalculatorApp;
 
