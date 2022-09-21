@@ -6,7 +6,7 @@ public abstract partial class Solid : Shape
 	{
 	}
 
-	protected override void Draw()
+	protected override void Draw(Graphics graphics)
 	{
 		throw new NotImplementedException();
 	}

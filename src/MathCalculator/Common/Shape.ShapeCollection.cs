@@ -125,6 +125,7 @@ public abstract partial class Shape
             {
                 if (RemoveInternal(item))
                 {
+                    item.Dispose();
                     continue;
                 }
                 else
