@@ -85,7 +85,7 @@ public class Rhombus : Shape
     }
 
 
-    protected override void Draw()
+    protected override void Draw(Graphics graphics)
     {
     }
 

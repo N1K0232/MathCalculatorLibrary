@@ -5,6 +5,7 @@ namespace MathCalculatorApp;
 public partial class MainForm : Form
 {
     private IContainer components = null;
+    private Button button;
 
     protected override void Dispose(bool disposing)
     {

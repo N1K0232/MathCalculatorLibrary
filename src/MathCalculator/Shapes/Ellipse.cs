@@ -73,7 +73,7 @@ public class Ellipse : Shape
 	private float SemiMajorAxis => MajorAxis / 2;
 	private float SemiMinorAxis => MinorAxis / 2;
 
-	protected override void Draw()
+	protected override void Draw(Graphics graphics)
 	{
 	}
 

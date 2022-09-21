@@ -128,7 +128,7 @@ public class Parallelogram : Shape
         }
     }
 
-    protected override void Draw()
+    protected override void Draw(Graphics graphics)
     {
     }
 
